@@ -1,0 +1,41 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "css-validator": "^0.11.0",
+    "date-fns": "^4.1.0",
+    "dns": "^0.2.2",
+    "eslint": "^9.18.0",
+    "eslint-browser": "^3.8.1",
+    "esprima": "^4.0.1",
+    "exif-parser": "^0.1.12",
+    "express": "^4.21.2",
+    "geoip-lite": "^1.4.10",
+    "html-validator": "^6.0.1",
+    "jsonpath": "^1.1.1",
+    "mammoth": "^1.9.0",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
+    "node-schedule": "^2.1.1",
+    "pdf2docx": "^0.0.0",
+    "puppeteer": "^24.1.0",
+    "schedule": "^0.5.0",
+    "sharp": "^0.33.5",
+    "ssl-checker": "^2.0.10",
+    "svgo": "^3.3.2",
+    "whois": "^2.14.2"
+  }
+}
