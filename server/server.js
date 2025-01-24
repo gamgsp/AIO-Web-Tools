@@ -640,7 +640,7 @@ app.get('/pagespeed', async (req, res) => {
     return res.status(400).send({ error: 'URL is required' });
   }
 
-  const apiKey = 'AIzaSyBhNG9kwDBgjxwaKiZ8HK_058Py87I5tL4'; // Replace with your actual API key
+  const apiKey = 'Your_Google_Api_Key'; // Replace with your actual API key
   const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&key=${apiKey}`;
 
   try {
