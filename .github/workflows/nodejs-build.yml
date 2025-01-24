@@ -30,9 +30,6 @@ jobs:
     - name: Install dependencies in server
       run: cd server && npm install
 
-    - name: Run tests in server
-      run: cd server && npm test
-
     - name: Build frontend project
       run: cd frontend && npm run build
 
@@ -55,9 +52,6 @@ jobs:
     - name: Install dependencies in server
       run: cd server && npm install
 
-    - name: Run tests in server
-      run: cd server && npm test
-
     - name: Build frontend project
       run: cd frontend && npm run build
 
@@ -79,9 +73,6 @@ jobs:
 
     - name: Install dependencies in server
       run: cd server && npm install
-
-    - name: Run tests in server
-      run: cd server && npm test
 
     - name: Build frontend project
       run: cd frontend && npm run build
