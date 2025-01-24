@@ -361,6 +361,3 @@ If you encounter issues with the AIO Web Tools app, please contact us for suppor
 - **Skype**: `globaladsmedia`
 
 ---
-
-### License
-This project is licensed under the terms and conditions specified during purchase.
