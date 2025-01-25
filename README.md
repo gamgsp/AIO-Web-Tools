@@ -296,7 +296,7 @@ server {
 
 
 
-#### 6. SSL Certificate:
+### 6. SSL Certificate:
 Set up an SSL certificate for HTTPS. Use **Let's Encrypt** for a free SSL certificate:
 
 ##### Using Certbot for Nginx:
