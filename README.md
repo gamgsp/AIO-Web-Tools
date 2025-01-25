@@ -4,6 +4,28 @@
   <img src="https://github.com/gamgsp/globaldata/blob/main/awt-1800-1024.jpg?raw=true" alt="AIO Web Tools Banner" width="80%" />
 </p>
 
+<p align="center">
+  <a href="https://github.com/gamgsp/AIO-Web-Tools/blob/main/.github/workflows/nodejs-build.yml">
+    <img src="https://github.com/gamgsp/AIO-Web-Tools/actions/workflows/nodejs-build.yml/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://github.com/gamgsp/AIO-Web-Tools/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/gamgsp/AIO-Web-Tools.svg" alt="License">
+  </a>
+  <a href="https://github.com/gamgsp/AIO-Web-Tools/issues">
+    <img src="https://img.shields.io/github/issues/gamgsp/AIO-Web-Tools.svg" alt="Open Issues">
+  </a>
+  <a href="https://github.com/gamgsp/AIO-Web-Tools/network">
+    <img src="https://img.shields.io/github/forks/gamgsp/AIO-Web-Tools.svg" alt="Forks">
+  </a>
+  <a href="https://github.com/gamgsp/AIO-Web-Tools/stargazers">
+    <img src="https://img.shields.io/github/stars/gamgsp/AIO-Web-Tools.svg" alt="Stars">
+  </a>
+  <a href="https://github.com/gamgsp/AIO-Web-Tools/commits/main">
+    <img src="https://img.shields.io/github/last-commit/gamgsp/AIO-Web-Tools.svg" alt="Last Commit">
+  </a>
+</p>
+
+
 Supercharge your web development workflow with AIO Web Tools, the ultimate all-in-one toolkit designed to streamline and enhance your web projects. Whether you’re a developer, designer, or hobbyist, our comprehensive suite of tools offers everything you need to work efficiently and effectively.
 
 ## 🚀 Converters
