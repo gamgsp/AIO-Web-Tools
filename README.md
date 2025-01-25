@@ -236,9 +236,19 @@ npm run build
 
 ---
 
+### 4. Set Up Your Domain
+
+#### DNS Settings:
+Log in to your domain registrar's website and update the DNS settings. Set an A record pointing to your server's IP address:
+
+- **Type**: A  
+- **Name**: @  
+- **Value**: Your server's IP address  
+- **TTL**: 1 hour (or your preferred value)
+
 ## Deployment
 
-### 4. Deploy the Frontend
+### 5. Deploy the Frontend without SSL
 
 #### Using Nginx:
 
@@ -254,7 +264,7 @@ server {
     }
 
     location /api {
-        proxy_pass http://localhost:5000;
+        proxy_pass http://localhost:8080;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -277,35 +287,16 @@ server {
         Require all granted
     </Directory>
 
-    ProxyPass /api http://localhost:5000
-    ProxyPassReverse /api http://localhost:5000
+    ProxyPass /api http://localhost:8080
+    ProxyPassReverse /api http://localhost:8080
 </VirtualHost>
 ```
 
 ---
 
-### 5. Configure and Start the Backend
-- Ensure the backend server is configured correctly. Update configurations like database connections if needed.
 
-- Start the backend server:
 
-```sh
-node server.js
-```
-
----
-
-### 6. Set Up Your Domain and SSL
-
-#### DNS Settings:
-Log in to your domain registrar's website and update the DNS settings. Set an A record pointing to your server's IP address:
-
-- **Type**: A  
-- **Name**: @  
-- **Value**: Your server's IP address  
-- **TTL**: 1 hour (or your preferred value)
-
-#### SSL Certificate:
+#### 6. SSL Certificate:
 Set up an SSL certificate for HTTPS. Use **Let's Encrypt** for a free SSL certificate:
 
 ##### Using Certbot for Nginx:
@@ -326,7 +317,91 @@ sudo certbot --apache -d yourdomain.com -d www.yourdomain.com
 
 ---
 
-### 7. Access Your App
+### 7. Deploy the Frontend with SSL
+
+#### Using Nginx:
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Redirect HTTP to HTTPS
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name yourdomain.com www.yourdomain.com;
+
+    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+```
+
+#### Using Apache:
+
+```apache
+<VirtualHost *:80>
+    ServerName yourdomain.com
+    ServerAlias www.yourdomain.com
+
+    # Redirect HTTP to HTTPS
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName yourdomain.com
+    ServerAlias www.yourdomain.com
+
+    # SSL Configuration
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/yourdomain.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/yourdomain.com/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+
+    # Proxy Configuration
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:8080/
+    ProxyPassReverse / http://localhost:8080/
+
+    # Additional Headers
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Port "443"
+
+</VirtualHost>
+</IfModule>
+
+```
+---
+
+### 8. Access your App
 Navigate to your domain in a web browser to access your AIO Web Tools app:
 
 ```plaintext
@@ -335,7 +410,7 @@ https://yourdomain.com
 
 ---
 
-### 8. Setup Process Manager (PM2)
+### 9. Setup Process Manager (PM2)
 Use **PM2** to ensure your server runs continuously:
 
 - Navigate to the frontend directory:
@@ -350,7 +425,7 @@ sudo npm install pm2 -g
 
 - Start your server with PM2:
 ```sh
-pm2 start npm --name aio-web-tools -- start
+pm2 start "npx serve -s dist -l 8080" --name "AIO-Web-Tools"
 ```
 
 - Save the PM2 configuration:
@@ -361,7 +436,7 @@ pm2 save
 
 ---
 
-### 9. Test Your App
+### 10. Test Your App
 - Test your app thoroughly to ensure all functionalities work as expected.
 - Use your browser's developer console to check for errors.
 
