@@ -27,8 +27,13 @@ const app = express();
 app.use(cors());
 app.use(express.json()); //
 
-// Serve static files from the dist directory
+// Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 const subdomains = [
   'www', 'mail', 'ftp', 'remote', 'blog', 'webmail', 'server', 'ns1', 'ns2', 'smtp', 'secure', 'vpn', 'm',
