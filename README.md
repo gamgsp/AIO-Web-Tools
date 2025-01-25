@@ -338,19 +338,19 @@ https://yourdomain.com
 ### 8. Setup Process Manager (PM2)
 Use **PM2** to ensure your server runs continuously:
 
-- Navigate to the backend directory:
+- Navigate to the frontend directory:
 ```sh
-cd server
+cd frontend
 ```
 
 - Install PM2 globally:
 ```sh
-npm install pm2 -g
+sudo npm install pm2 -g
 ```
 
 - Start your server with PM2:
 ```sh
-pm2 start server.js --name aio-web-tools
+pm2 start npm --name aio-web-tools -- start
 ```
 
 - Save the PM2 configuration:
