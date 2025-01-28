@@ -1,78 +1,78 @@
-name: AIO Web Tools Package
+name: AIO Web Tools
 
 on:
-  release: 
-    types: [created]
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 
 jobs:
   build-ubuntu:
+    name: Build on Ubuntu
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
 
-  build-windows:
-    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 19.x
+
+    - name: Install dependencies in frontend
+      run: cd frontend && npm install
+
+    - name: Install dependencies in server
+      run: cd server && npm install
+
+    - name: Build frontend project
+      run: cd frontend && npm run build
 
   build-macos:
+    name: Build on macOS
     runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
 
-  publish-npm-ubuntu:
-    needs: build-ubuntu
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-  publish-npm-windows:
-    needs: build-windows
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 19.x
+
+    - name: Install dependencies in frontend
+      run: cd frontend && npm install
+
+    - name: Install dependencies in server
+      run: cd server && npm install
+
+    - name: Build frontend project
+      run: cd frontend && npm run build
+
+  build-windows:
+    name: Build on Windows
     runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
-  publish-npm-macos:
-    needs: build-macos
-    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 19.x
+
+    - name: Install dependencies in frontend
+      run: cd frontend && npm install
+
+    - name: Install dependencies in server
+      run: cd server && npm install
+
+    - name: Build frontend project
+      run: cd frontend && npm run build
