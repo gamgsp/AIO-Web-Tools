@@ -442,16 +442,16 @@ pm2 save
 
 ---
 
-## Troubleshooting
+### Troubleshooting
 
-### Common Issues
+#### Common Issues
 - **Puppeteer Issues**: If you encounter issues with Puppeteer, ensure all required libraries are installed on your server.
 - **API Errors**: Verify that the backend server is running and accessible.
 - **Deployment Issues**: Check your server and hosting configuration for misconfigurations.
 
 ---
 
-## Support
+### Support
 If you encounter issues with the AIO Web Tools app, please contact us for support:
 
 - **Email**: [info@globaladsmedia.us](mailto:info@globaladsmedia.us)  
@@ -459,7 +459,7 @@ If you encounter issues with the AIO Web Tools app, please contact us for suppor
 
 ---
 
-## Support the Project
+### Support the Project
 If you are willing to donate to this project for more development and support it or buy us a coffee, 
 * Credit/Debit Card- https://buy.stripe.com/28o012gaF9lha6Q3cd
 * USDT TRC20- TBnXvJrfPHPcvPi7mPjQpCCPfhEPDMczMc
