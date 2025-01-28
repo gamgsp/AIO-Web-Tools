@@ -460,7 +460,7 @@ If you encounter issues with the AIO Web Tools app, please contact us for suppor
 ---
 
 ## Support the Project
-If you are willing to donate for this project for more development and support it or buy us a coffee, 
+If you are willing to donate to this project for more development and support it or buy us a coffee, 
 * Credit/Debit Card- https://buy.stripe.com/28o012gaF9lha6Q3cd
 * USDT TRC20- TBnXvJrfPHPcvPi7mPjQpCCPfhEPDMczMc
 * USDT ERC20- 0x05b37045764b1F69943bd265834547514263e9Dc
