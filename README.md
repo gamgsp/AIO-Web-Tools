@@ -208,14 +208,14 @@ Before you begin, ensure you have the following:
   
 - For the frontend, navigate to the frontend directory and install its dependencies:
 ```sh
-cd aio-web-tools/frontend
+cd AIO-Web-Tools/frontend
 npm install
 ```
 
 - For the backend, navigate to the server directory and install its dependencies:
 
 ```sh
-cd server
+cd ../server
 npm install
 ```
 
@@ -258,7 +258,7 @@ server {
     server_name yourdomain.com;
 
     location / {
-        root /path/to/your/dist/folder;
+        root /path/to/your/frontend/folder;
         index index.html;
         try_files $uri $uri/ /index.html;
     }
@@ -279,9 +279,9 @@ server {
 ```apache
 <VirtualHost *:80>
     ServerName yourdomain.com
-    DocumentRoot /path/to/your/dist/folder
+    DocumentRoot /path/to/your/frontend/folder
 
-    <Directory /path/to/your/dist/folder>
+    <Directory /path/to/your/frontend/folder>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
@@ -425,7 +425,7 @@ sudo npm install pm2 -g
 
 - Start your server with PM2:
 ```sh
-pm2 start "npx serve -s dist -l 8080" --name "AIO-Web-Tools"
+pm2 start npm --name "AIO-Web-Tools" -- start
 ```
 
 - Save the PM2 configuration:
