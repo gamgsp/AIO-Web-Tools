@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start:frontend": "npm run serve",
+    "start:frontend": "npx serve -s dist -l 8080",
     "start:backend": "node ../server/server.js",
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
   },
