@@ -400,8 +400,22 @@ server {
 
 ```
 ---
+### 8. Deploy the Backend with SSL
 
-### 8. Access your App
+Update the SSL Cert location in server.js file in server folder.
+```plaintext
+const privateKey = fs.readFileSync('path/to/your/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('path/to/your/cert.pem', 'utf8');
+const ca = fs.readFileSync('path/to/your/chain.pem', 'utf8');
+```
+
+- path/to/your/privkey.pem
+- path/to/your/cert.pem
+- path/to/your/chain.pem
+
+
+
+### 9. Access your App
 Navigate to your domain in a web browser to access your AIO Web Tools app:
 
 ```plaintext
@@ -410,7 +424,7 @@ https://yourdomain.com
 
 ---
 
-### 9. Setup Process Manager (PM2)
+### 10. Setup Process Manager (PM2)
 Use **PM2** to ensure your server runs continuously:
 
 - Navigate to the frontend directory:
@@ -436,7 +450,7 @@ pm2 save
 
 ---
 
-### 10. Test Your App
+### 11. Test Your App
 - Test your app thoroughly to ensure all functionalities work as expected.
 - Use your browser's developer console to check for errors.
 
