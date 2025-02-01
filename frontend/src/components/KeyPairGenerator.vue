@@ -45,7 +45,14 @@ export default {
       this.publicKey = '';
       this.privateKey = '';
       try {
-        const response = await axios.post('http://localhost:5000/api/generate-keys');
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/generate-keys`;
+
+        const response = await axios.post(apiUrl);
         console.log('Response data:', response.data); // Log response data
         this.publicKey = response.data.publicKey;
         this.privateKey = response.data.privateKey;

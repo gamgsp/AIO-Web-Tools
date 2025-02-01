@@ -54,16 +54,24 @@ export default {
       domain: '',
       result: null,
       error: null,
-      loading: false, // Add loading state
+      loading: false,
     };
   },
   methods: {
     async performLookup() {
-      this.loading = true; // Set loading to true
+      this.loading = true;
       this.error = null;
       this.result = null;
       try {
-        const response = await fetch(`http://localhost:5000/whois?domain=${this.domain}`);
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/whois?domain=${this.domain}`;
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -72,7 +80,7 @@ export default {
       } catch (error) {
         this.error = 'Failed to perform lookup';
       } finally {
-        this.loading = false; // Set loading to false
+        this.loading = false;
       }
     },
     formatWhois(whoisData) {

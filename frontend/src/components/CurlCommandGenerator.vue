@@ -72,7 +72,15 @@ export default {
       this.result = null;
 
       try {
-        const response = await axios.post('http://localhost:5000/api/generate-curl-command', {
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/generate-curl-command`;
+
+        const response = await axios.post(apiUrl, {
           url: this.url,
           method: this.method,
           body: this.body,

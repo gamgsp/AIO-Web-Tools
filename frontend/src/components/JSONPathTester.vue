@@ -74,7 +74,14 @@ export default {
       this.result = null;
 
       try {
-        const response = await axios.post('http://localhost:5000/api/evaluate-jsonpath', {
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/evaluate-jsonpath`;
+
+        const response = await axios.post(apiUrl, {
           jsonData: this.jsonData,
           jsonPath: this.jsonPath,
         });

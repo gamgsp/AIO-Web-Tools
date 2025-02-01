@@ -44,7 +44,15 @@ export default {
 
     const generateCriticalCSS = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/generate-critical-css', { url: url.value });
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/generate-critical-css`;
+        const response = await axios.post(apiUrl, { url: url.value });
+
         result.value = response.data;
         error.value = null;
       } catch (err) {

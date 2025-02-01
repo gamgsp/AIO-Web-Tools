@@ -56,7 +56,15 @@ export default {
       this.result = null;
 
       try {
-        const response = await axios.post('http://localhost:5000/api/generate-regex', {
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/generate-regex`;
+
+        const response = await axios.post(apiUrl, {
           criteria: this.criteria,
         });
         this.result = response.data;

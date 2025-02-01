@@ -84,7 +84,15 @@ export default {
       this.error = null;
       this.result = null;
       try {
-        const response = await fetch('http://localhost:5000/cssvalidator', {
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/cssvalidator`;
+
+        const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

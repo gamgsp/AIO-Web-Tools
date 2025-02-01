@@ -16,10 +16,7 @@ Use this tool to view EXIF data of your uploaded images.
     <div class="tool-form mb-6">
       <form @submit.prevent="viewExifData" enctype="multipart/form-data">
         <div class="form-group mb-4">
-          <label
-            for="image"
-            class="block text-gray-700 text-sm font-bold mb-2"
-          >
+          <label for="image" class="block text-gray-700 text-sm font-bold mb-2">
             Upload Image:
           </label>
           <input
@@ -43,9 +40,7 @@ Use this tool to view EXIF data of your uploaded images.
     </div>
     <div v-if="formattedExifData" class="generated-info mt-4 text-center">
       <h3 class="text-2xl font-bold mb-2">EXIF Data</h3>
-      <table
-        class="bg-gray-100 p-2 rounded w-full mx-auto text-left"
-      >
+      <table class="bg-gray-100 p-2 rounded w-full mx-auto text-left">
         <tr v-for="(value, key) in formattedExifData" :key="key">
           <td class="font-bold">{{ key }}:</td>
           <td>{{ value }}</td>
@@ -115,10 +110,12 @@ export default {
       formData.append("image", this.image);
 
       try {
-        const response = await axios.post(
-          "http://localhost:5000/api/exif-data",
-          formData
-        );
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+        const apiUrl = `${protocol}//${host}:${port}/api/exif-data`;
+
+        const response = await axios.post(apiUrl, formData);
         this.exifData = JSON.stringify(response.data);
       } catch (error) {
         this.error = `Error: ${

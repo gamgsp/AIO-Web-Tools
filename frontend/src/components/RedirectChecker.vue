@@ -43,30 +43,37 @@ https://www.example.com
 import axios from 'axios';
 
 export default {
-    name: 'RedirectChecker',
-    data() {
-        return {
-            url: '',
-            result: null,
-            error: '',
-            loading: false,
-        };
+  name: 'RedirectChecker',
+  data() {
+    return {
+      url: '',
+      result: null,
+      error: '',
+      loading: false,
+    };
+  },
+  methods: {
+    async checkRedirect() {
+      this.loading = true;
+      this.error = '';
+      this.result = null;
+      try {
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/check-redirect`;
+
+        const response = await axios.post(apiUrl, { url: this.url });
+        this.result = response.data;
+      } catch (error) {
+        this.error = `Error: ${error.response ? error.response.data.message : error.message}`;
+      } finally {
+        this.loading = false;
+      }
     },
-    methods: {
-        async checkRedirect() {
-            this.loading = true;
-            this.error = '';
-            this.result = null;
-            try {
-                const response = await axios.post('http://localhost:5000/api/check-redirect', { url: this.url });
-                this.result = response.data;
-            } catch (error) {
-                this.error = `Error: ${error.response ? error.response.data.message : error.message}`;
-            } finally {
-                this.loading = false;
-            }
-        },
-    },
+  },
 };
 </script>
 

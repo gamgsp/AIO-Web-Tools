@@ -72,7 +72,14 @@ export default {
       this.error = null;
       this.result = null;
       try {
-        const response = await fetch(`http://localhost:5000/ipgeolocation?ip=${this.ipAddress}`);
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/ipgeolocation?ip=${this.ipAddress}`;
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

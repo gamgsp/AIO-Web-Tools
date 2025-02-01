@@ -65,7 +65,15 @@ export default {
       console.log('Sending form data:', formData);
 
       try {
-        const response = await axios.post('http://localhost:5000/api/optimize-svg', formData, { responseType: 'blob' });
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/optimize-svg`;
+
+        const response = await axios.post(apiUrl, formData, { responseType: 'blob' });
         console.log('Received response:', response.data);
         const blob = new Blob([response.data]);
         this.downloadUrl = window.URL.createObjectURL(blob);

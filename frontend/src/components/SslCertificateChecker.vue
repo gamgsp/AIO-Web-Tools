@@ -66,7 +66,15 @@ export default {
       this.error = null;
       this.result = null;
       try {
-        const response = await fetch(`http://localhost:5000/sslcheck?domain=${this.domain}`);
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/sslcheck?domain=${this.domain}`;
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

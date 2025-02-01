@@ -59,7 +59,15 @@ export default {
       this.error = '';
       this.results = null;
       try {
-        const response = await axios.post('http://localhost:5000/api/check-links', { url: this.url });
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/check-links`;
+        const response = await axios.post(apiUrl, { url: this.url });
+
         this.results = response.data.brokenLinks;
       } catch (error) {
         this.error = `Error: ${error.response ? error.response.data.message : error.message}`;

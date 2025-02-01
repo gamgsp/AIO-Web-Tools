@@ -46,7 +46,15 @@ export default {
 
     const scanSubdomains = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/scan-subdomains', { domain: domain.value });
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/scan-subdomains`;
+
+        const response = await axios.post(apiUrl, { domain: domain.value });
         subdomains.value = response.data.subdomains;
         error.value = null;
       } catch (err) {

@@ -27,6 +27,31 @@ const app = express();
 app.use(cors());
 app.use(express.json()); //
 
+app.post('/api/generate-robots-txt', (req, res) => {
+  const { userAgent, disallow, allow, allowCrawlers, disallowCrawlers } = req.body;
+
+  // Create the robots.txt content
+  let robotsTxt = `User-Agent: ${userAgent}\n`;
+  if (disallow) {
+    robotsTxt += `Disallow: ${disallow}\n`;
+  }
+  if (allow) {
+    robotsTxt += `Allow: ${allow}\n`;
+  }
+  if (allowCrawlers && allowCrawlers.length > 0) {
+    allowCrawlers.forEach(crawler => {
+      robotsTxt += `User-Agent: ${crawler}\nAllow: /\n`;
+    });
+  }
+  if (disallowCrawlers && disallowCrawlers.length > 0) {
+    disallowCrawlers.forEach(crawler => {
+      robotsTxt += `User-Agent: ${crawler}\nDisallow: /\n`;
+    });
+  }
+
+  res.json({ robotsTxt });
+});
+
 const subdomains = [
   'www', 'mail', 'ftp', 'remote', 'blog', 'webmail', 'server', 'ns1', 'ns2', 'smtp', 'secure', 'vpn', 'm',
   'shop', 'imap', 'pop', 'pop3', 'dev', 'test', 'portal', 'beta', 'api', 'cpanel', 'mysql', 'staging'
@@ -711,7 +736,22 @@ schedule.scheduleJob('0 * * * *', () => {
 });
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+let credentials = null;
+try {
+  const privateKey = fs.readFileSync('path/to/your/privkey.pem', 'utf8');
+  const certificate = fs.readFileSync('path/to/your/cert.pem', 'utf8');
+  const ca = fs.readFileSync('path/to/your/chain.pem', 'utf8');
+  credentials = { key: privateKey, cert: certificate, ca: ca };
+} catch (error) {
+  console.warn('HTTPS credentials not found, falling back to HTTP.');
+}
 
+if (credentials) {
+  https.createServer(credentials, app).listen(port, () => {
+    console.log(`HTTPS Server is running on port ${port}`);
+  });
+} else {
+  http.createServer(app).listen(port, () => {
+    console.log(`HTTP Server is running on port ${port}`);
+  });
+}

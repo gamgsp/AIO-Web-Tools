@@ -47,7 +47,15 @@ export default {
       this.error = '';
       this.token = '';
       try {
-        const response = await axios.post('http://localhost:5000/api/generate-token', { length: this.length });
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/api/generate-token`;
+
+        const response = await axios.post(apiUrl, { length: this.length });
         this.token = response.data.token;
       } catch (error) {
         this.error = `Error: ${error.response ? error.response.data.message : error.message}`;

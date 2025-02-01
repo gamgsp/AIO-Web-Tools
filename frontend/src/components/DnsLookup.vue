@@ -84,7 +84,15 @@ export default {
       this.error = null;
       this.result = null;
       try {
-        const response = await fetch(`http://localhost:5000/dnslookup?domain=${this.domain}&type=${this.recordType}`);
+        // Detect current protocol and host
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+
+        // Construct the API URL with the correct port
+        const apiUrl = `${protocol}//${host}:${port}/dnslookup?domain=${this.domain}&type=${this.recordType}`;
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

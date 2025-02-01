@@ -90,7 +90,12 @@ export default {
       formData.append('quality', this.quality);
 
       try {
-        const response = await axios.post('http://localhost:5000/api/resize-image', formData, {
+        const protocol = window.location.protocol;
+        const host = window.location.hostname;
+        const port = 5000;
+        const apiUrl = `${protocol}//${host}:${port}/api/resize-image`;
+
+        const response = await axios.post(apiUrl, formData, {
           responseType: 'blob',
         });
         const url = URL.createObjectURL(response.data);
