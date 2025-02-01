@@ -22,6 +22,8 @@ const { optimize } = require('svgo');
 const upload = multer({ dest: 'uploads/' });
 const jsonpath = require('jsonpath');
 const assert = require('assert');
+const http = require('http');
+const https = require('https');
 
 const app = express();
 app.use(cors());
